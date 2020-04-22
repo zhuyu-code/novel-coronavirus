@@ -2,6 +2,34 @@
 import React,{useEffect} from 'react';
 import { connect } from "react-redux";
 import * as actionCreators from './store/actionCreators';
+import { Table } from 'antd';
+
+const columns = [
+  {
+    title: '省市',
+    dataIndex: 'provinceShortName',
+    key: 'provinceShortName',
+    width: '25%',
+  },
+  {
+    title: '确诊',
+    dataIndex: 'confirmedCount',
+    key: 'confirmedCount',
+    width: '25%',
+  },
+  {
+    title: '死亡',
+    dataIndex: 'deadCount',
+    width: '25%',
+    key: 'deadCount',
+  },
+  {
+    title: '治愈',
+    dataIndex: 'curedCount',
+    width: '25%',
+    key: 'curedCount',
+  },
+];
 
 function NcovMap (props) {
   const {mainDataList,getMainDataDispatch}=props;
@@ -10,11 +38,10 @@ function NcovMap (props) {
   },[])
 
   const mainDataListJS=mainDataList ? mainDataList.toJS():[];
-  console.log("内容")
   console.log(mainDataListJS);
   return (
     <div>
-      NcovMap
+      <Table columns={columns} childrenColumnName='cities'  dataSource={mainDataListJS} />
     </div>
   )
 }
