@@ -1,0 +1,14 @@
+.main{
+    text-align: center;
+}
+.ant-input{
+    width: 90vw!important;
+}
+.content{
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+}
+.item1,.item2{
+    width:45%!important;
+}

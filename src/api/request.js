@@ -9,3 +9,9 @@ export const getNcovTrend=()=>{
 export const getDistanceQuery=()=>{
     return axiosInstance.get('/api/index/distance')
 }
+export const getSwiperData=()=>{
+    return axiosInstance.get('/api/index/swiper');
+}
+export const getNcovWorld=()=>{
+    return axiosInstance.get('/api/index/worldList')
+}

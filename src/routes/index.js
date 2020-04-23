@@ -3,7 +3,7 @@ import React from 'react';
 import { Redirect } from "react-router-dom";
 import Home from '../application/Home';
 import NcovMap from '../application/NcovMap';
-import NewMessage from '../application/NewMessage';
+import NcovWorld from '../application/NcovWorld';
 import NcovTrend from '../application/NcovTrend';
 import DistanceQuery from '../application/DistanceQuery'
 
@@ -24,8 +24,8 @@ export default [
         component: NcovMap
       },
       {
-        path: "/newmessage",
-        component: NewMessage
+        path: "/ncovworld",
+        component: NcovWorld
       },
       {
         path: "/ncovtrend",

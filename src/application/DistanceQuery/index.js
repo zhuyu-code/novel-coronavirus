@@ -2,6 +2,7 @@ import React,{useEffect} from 'react';
 import { connect } from "react-redux";
 import * as actionCreators from './store/actionCreators';
 import { Table, Input, Select } from 'antd';
+import "./index.css"
 
 const { Option } = Select;
 const columns = [
@@ -48,11 +49,11 @@ function DistanceQuery(props){
     },[])
     let DistanceDataListJS=DistanceDataList?DistanceDataList.toJS():[];
     return (
-        <div>
-            <Input/>
-            <div>
-                <Input/>
-                 <Select defaultValue="lucy" >
+        <div className="main">
+            <Input id="car"/>
+            <div className="content" placeholder="车次/车牌/航班/场所">
+                <Input className="item1"/>
+                <Select className="item2" defaultValue="lucy" >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
                 <Option value="Yiminghe">yiminghe</Option>

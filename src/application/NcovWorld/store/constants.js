@@ -1,0 +1,1 @@
+export const GET_NCOV_WORLD = 'ncov/getWorldList';
