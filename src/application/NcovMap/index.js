@@ -6,27 +6,34 @@ import { Table } from 'antd';
 
 const columns = [
   {
-    title: '省市',
+    title: <span style={{paddingLeft:"20px"}}>省市</span>,
     dataIndex: 'provinceShortName',
     key: 'provinceShortName',
-    width: '25%',
+    width: '40%',
+    render:(text, record)=>{
+      if(record.provinceShortName){
+      return <span>{record.provinceShortName}</span>
+      }else{
+        return <span>{record.cityName}</span>
+      }
+    }
   },
   {
     title: '确诊',
     dataIndex: 'confirmedCount',
     key: 'confirmedCount',
-    width: '25%',
+    width: '20%',
   },
   {
     title: '死亡',
     dataIndex: 'deadCount',
-    width: '25%',
+    width: '20%',
     key: 'deadCount',
   },
   {
     title: '治愈',
     dataIndex: 'curedCount',
-    width: '25%',
+    width: '20%',
     key: 'curedCount',
   },
 ];
@@ -38,7 +45,6 @@ function NcovMap (props) {
   },[])
 
   const mainDataListJS=mainDataList ? mainDataList.toJS():[];
-  console.log(mainDataListJS);
   return (
     <div>
       <Table columns={columns} childrenColumnName='cities'  dataSource={mainDataListJS} />

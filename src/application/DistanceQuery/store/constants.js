@@ -1,0 +1,1 @@
+export const GET_DISTANCE_QUERY = 'distance/getDistanceQuery';

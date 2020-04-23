@@ -1,0 +1,1 @@
+export const GET_NCOV_TREND = 'ncovtrend/getNcovTrend';
