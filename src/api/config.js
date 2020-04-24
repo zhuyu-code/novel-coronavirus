@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const baseUrl = 'http://39.98.189.108:7000';
+export const baseUrl = 'http://localhost:7000';
 
 //axios 的实例及拦截器配置
 const axiosInstance = axios.create ({

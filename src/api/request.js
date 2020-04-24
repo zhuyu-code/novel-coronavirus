@@ -6,8 +6,8 @@ export const getMainData = () => {
 export const getNcovTrend=()=>{
     return axiosInstance.get('/api/index/ncovtrend')
 }
-export const getDistanceQuery=()=>{
-    return axiosInstance.get('/api/index/distance')
+export const getDistanceQuery=(params)=>{
+    return axiosInstance.get('/api/index/distance',{params:params})
 }
 export const getSwiperData=()=>{
     return axiosInstance.get('/api/index/swiper');

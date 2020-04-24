@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import { Timeline } from 'antd';
+import { Timeline, Spin} from 'antd';
 import {Squa,Main} from './style';
 import {connect} from 'react-redux';
 import * as actionCreators from './store/actionCreators';
@@ -7,26 +7,30 @@ import * as actionCreators from './store/actionCreators';
 function NcovTrend(props){
     const {TrendDataList,getTrendDataDispatch}=props;
     useEffect(()=>{
-        getTrendDataDispatch();
+        if(!TrendDataList.size){
+            getTrendDataDispatch();
+        }
     },[])
     const TrendDataListJS=TrendDataList?TrendDataList.toJS():[];
     console.log(TrendDataListJS);
     return (
        <Main>
-        <Timeline>
-            {
-                TrendDataListJS.map((res)=>{
-                    return (
-                        <Timeline.Item>
-                        <div>{res.lmodify}</div>
-                        <Squa href={res.url}>
-                            <div>{res.title}</div>
-                        </Squa>
-                        </Timeline.Item>
-                    )
-                })
-            }
-        </Timeline>
+        {
+            TrendDataListJS.length?(<Timeline>
+                {
+                    TrendDataListJS.map((res)=>{
+                        return (
+                            <Timeline.Item>
+                            <div>{res.lmodify}</div>
+                            <Squa href={res.url}>
+                                <div>{res.title}</div>
+                            </Squa>
+                            </Timeline.Item>
+                        )
+                    })
+                }
+            </Timeline>):(<div style={{textAlign:"center"}}><Spin style={{marginTop:"100px"}} tip="加载中..."/></div>)
+        }
        </Main>
     )
 }

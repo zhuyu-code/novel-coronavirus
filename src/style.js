@@ -49,6 +49,9 @@ export const GlobalStyle = createGlobalStyle`
 	}
 	a {
 		text-decoration: none;
-		color: #fff;
+		color: blue;
+		&:hover{
+			color:red
+		}
 	}
 `

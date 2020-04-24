@@ -1,7 +1,7 @@
 import React,{useEffect} from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from './store/actionCreators';
-import {Table} from 'antd';
+import {Table,Spin} from 'antd';
 import "./index.css";
 const columns = [
     {
@@ -45,12 +45,17 @@ const columns = [
 function NcovWorld(props){
     const {ncovWorldList,getNcovWorldDispatch}=props;
     useEffect(() => {
-        getNcovWorldDispatch();
+        if(!ncovWorldList.size){
+            getNcovWorldDispatch();
+        }
     }, [])
     let ncovWorldListJS=ncovWorldList?ncovWorldList.toJS():[];
     return (
-        <div>
-           <Table columns={columns} childrenColumnName='cities'  dataSource={ncovWorldListJS} pagination="false"/>
+        <div style={{textAlign:"center"}}>
+          {
+              ncovWorldListJS.length?( <Table columns={columns} childrenColumnName='cities'  dataSource={ncovWorldListJS} pagination={false}/>)
+              :<Spin style={{marginTop:"100px"}} tip="加载中..."/>
+          }
         </div>
     )
 }

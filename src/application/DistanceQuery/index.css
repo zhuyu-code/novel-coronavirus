@@ -3,6 +3,8 @@
 }
 .ant-input{
     width: 90vw!important;
+    height: 40px!important;
+    background-color: #F4F4F4!important;
 }
 .content{
     display: flex;
@@ -11,4 +13,13 @@
 }
 .item1,.item2{
     width:45%!important;
+}
+.ant-btn{
+    height: 40px!important;
+    background-color: #11C80B!important;
+    border: 0!important;
+}
+.ant-select-selection--single{
+    height: 40px!important;
+    background-color: #F4F4F4!important;
 }

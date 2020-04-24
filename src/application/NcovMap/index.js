@@ -2,7 +2,7 @@
 import React,{useEffect} from 'react';
 import { connect } from "react-redux";
 import * as actionCreators from './store/actionCreators';
-import { Table } from 'antd';
+import { Table,Spin } from 'antd';
 
 const columns = [
   {
@@ -41,13 +41,18 @@ const columns = [
 function NcovMap (props) {
   const {mainDataList,getMainDataDispatch}=props;
   useEffect(()=>{
-    getMainDataDispatch();
+    if(!mainDataList.size){
+      getMainDataDispatch();
+    }
   },[])
 
   const mainDataListJS=mainDataList ? mainDataList.toJS():[];
   return (
-    <div>
-      <Table columns={columns} childrenColumnName='cities'  dataSource={mainDataListJS} />
+    <div style={{textAlign:"center"}}>
+      {
+        mainDataListJS.length?(<Table columns={columns} childrenColumnName='cities'  dataSource={mainDataListJS} pagination={false}/>):
+        ( <Spin tip="加载中..." style={{marginTop:"100px"}}/>)
+      }
     </div>
   )
 }

@@ -13,7 +13,9 @@ function Home (props) {
     const { route } = props;
     const {SwiperDataList,getSwiperDispatch}=props;
     useEffect(() => {
-      getSwiperDispatch();
+      if(!SwiperDataList.size){
+        getSwiperDispatch();
+      }
     }, [])
     useEffect(() => {
       let newSlides=[];

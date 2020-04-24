@@ -1,8 +1,8 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { connect } from "react-redux";
 import * as actionCreators from './store/actionCreators';
-import { Table, Input, Select } from 'antd';
-import "./index.css"
+import { Table, Input, Select ,Button,Spin} from 'antd';
+import "./index.css";
 
 const { Option } = Select;
 const columns = [
@@ -10,6 +10,7 @@ const columns = [
       title: '日期',
       dataIndex: 't_date',
       key: 't_date',
+      align:"center",
       render:(text,record)=>{
       return (<span>{record.t_date.slice(5)}</span>)
       }
@@ -19,23 +20,28 @@ const columns = [
       dataIndex: 't_no',
       key: 't_no',
       width:"24%",
+      align:"center",
     },
     {
       title: '始发站',
       dataIndex: 't_pos_start',
       key: 't_pos_start',
-      ellipsis:true
+      ellipsis:true,
+      align:"center",
     },
     {
         title: '终点站',
         dataIndex: 't_pos_end',
         key: 't_pos_end',
-        ellipsis:true
+        ellipsis:true,
+        align:"center",
       },
       {
-        title: '详情',
+        title: '查看详情',
         dataIndex: 'detail',
         key: 'detail',
+        width:"20%",
+        align:"center",
         render:(text,record)=>{
             return (<a style={{color:"#000"}} href={record.source}>详情</a>)
         }
@@ -44,22 +50,41 @@ const columns = [
 
 function DistanceQuery(props){
     const {DistanceDataList,getDistanceDispatch}=props;
+    const [current, setCurrent] = useState(1);
     useEffect(()=>{
-        getDistanceDispatch();
+        if(!DistanceDataList.size){
+            getDistanceDispatch({page:1,pageSize:10});
+        }
+        
     },[])
     let DistanceDataListJS=DistanceDataList?DistanceDataList.toJS():[];
+
+    let MadeCurrent=(page)=>{
+        setCurrent(page.current);
+        getDistanceDispatch({page:current+1,pageSize:10})
+    }
     return (
         <div className="main">
-            <Input id="car"/>
-            <div className="content" placeholder="车次/车牌/航班/场所">
-                <Input className="item1"/>
+            <Input id="car" placeholder="车次/车牌/航班/场所"/>
+            <div className="content">
+                <Input className="item1" placeholder="地点/成都"/>
                 <Select className="item2" defaultValue="lucy" >
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
                 <Option value="Yiminghe">yiminghe</Option>
                 </Select>
             </div>
-            <Table style={{fontSize:"12px"}} columns={columns} dataSource={DistanceDataListJS}/>
+            <Button style={{width:"90vw",margin:"10px 0",}} type="primary">查询</Button>
+            {Object.keys(DistanceDataListJS).length ?
+            (
+                <Table style={{fontSize:"12px"}}
+                columns={columns}
+                pagination={{defaultPageSize:10,current:current,total:DistanceDataListJS.len, pageSizeOptions:['10','20','30','40','50']}} 
+                dataSource={DistanceDataListJS.allData}
+                onChange={MadeCurrent}
+                />
+              )
+            :<Spin tip="加载中..."/>}
         </div>
     )
 }
@@ -72,8 +97,8 @@ const mapStateToProps = (state) => ({
   // 映射 dispatch 到 props 上
   const mapDispatchToProps = (dispatch) => {
     return {
-      getDistanceDispatch () {
-         dispatch(actionCreators.getDistanceList());
+      getDistanceDispatch (params) {
+         dispatch(actionCreators.getDistanceList(params));
       }
     }
   };
