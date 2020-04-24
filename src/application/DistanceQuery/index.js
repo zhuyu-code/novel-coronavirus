@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from 'react';
 import { connect } from "react-redux";
 import * as actionCreators from './store/actionCreators';
-import { Table, Input, Select ,Button,Spin} from 'antd';
+import { Table, Input, Select ,Button,Spin,DatePicker} from 'antd';
 import "./index.css";
 
 const { Option } = Select;
@@ -47,10 +47,12 @@ const columns = [
         }
       }
   ];
-
 function DistanceQuery(props){
     const {DistanceDataList,getDistanceDispatch}=props;
     const [current, setCurrent] = useState(1);
+    const [carNum,setCarNum]=useState("");
+    const [place,setPlace]=useState("");
+    const [date,setDate]=useState("");
     useEffect(()=>{
         if(!DistanceDataList.size){
             getDistanceDispatch({page:1,pageSize:10});
@@ -63,18 +65,30 @@ function DistanceQuery(props){
         setCurrent(page.current);
         getDistanceDispatch({page:current+1,pageSize:10})
     }
+    let changeInputCarNum=(e)=>{
+            setCarNum(e.target.value);
+        }
+        let changeInputPlace=(e)=>{
+            setPlace(e.target.value);
+        }
+        let changeInputDate=(date, dateString)=>{
+            console.log("打印");
+            console.log(dateString);
+           setDate(dateString)
+        }
+
+    function FindDistanceData(){
+        getDistanceDispatch({page:1,pageSize:10,carNum,place,date});
+         DistanceDataListJS=DistanceDataList?DistanceDataList.toJS():[];
+    }
     return (
         <div className="main">
-            <Input id="car" placeholder="车次/车牌/航班/场所"/>
+            <Input id="carNum" className="car"  placeholder="车次/车牌/航班/场所" value={carNum} onChange={changeInputCarNum}/>
             <div className="content">
-                <Input className="item1" placeholder="地点/成都"/>
-                <Select className="item2" defaultValue="lucy" >
-                <Option value="jack">Jack</Option>
-                <Option value="lucy">Lucy</Option>
-                <Option value="Yiminghe">yiminghe</Option>
-                </Select>
+                <Input  id="place" className="item1" placeholder="地点/成都" value={place} onChange={changeInputPlace}/>
+                <DatePicker  id="date" className="item2" placeholder="请选择日期"  onChange={changeInputDate}/>
             </div>
-            <Button style={{width:"90vw",margin:"10px 0",}} type="primary">查询</Button>
+            <Button style={{width:"90vw",margin:"10px 0",}} type="primary" onClick={FindDistanceData}>查询</Button>
             {Object.keys(DistanceDataListJS).length ?
             (
                 <Table style={{fontSize:"12px"}}
@@ -99,7 +113,7 @@ const mapStateToProps = (state) => ({
     return {
       getDistanceDispatch (params) {
          dispatch(actionCreators.getDistanceList(params));
-      }
+      },
     }
   };
   export default connect (mapStateToProps, mapDispatchToProps)(React.memo(DistanceQuery));

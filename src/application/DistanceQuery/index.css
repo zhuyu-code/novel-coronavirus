@@ -1,7 +1,7 @@
 .main{
     text-align: center;
 }
-.ant-input{
+.car{
     width: 90vw!important;
     height: 40px!important;
     background-color: #F4F4F4!important;
@@ -13,6 +13,10 @@
 }
 .item1,.item2{
     width:45%!important;
+    background-color: #F4F4F4!important;
+}
+.ant-input{
+    background-color: #F4F4F4!important;
 }
 .ant-btn{
     height: 40px!important;
