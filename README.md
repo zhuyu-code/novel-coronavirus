@@ -4,7 +4,10 @@
 
 **前端技术栈**：React hooks+redux+immutable+swiper+Axios
 
-**后端技术栈**：express(为了跨域主要做中间件转发新浪数据请求),代码在前端nCovserver文件夹里的app.js，先no 						de app.js运行行后端文件，在前端文件。
+**后端技术栈**：express(为了跨域主要做中间件转发新浪数据请求)
+## 运行方式
+ 后端代码：在前端nCovserver文件夹里的app.js，先node app.js运行行后端文件，在前端文件。  
+ 前端代码：npm run start
 
 ### 功能图
 
